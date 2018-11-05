@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Color } from '../../constant';
+import Color from '../../constant/Color';
 
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import TextRoboto from '../components/TextRoboto';
 
 class SplashLoading extends React.Component {
 
@@ -17,7 +18,7 @@ class SplashLoading extends React.Component {
     render() {
         return(
             <View style={styles.main_container}>
-                <Text>Splash Screen</Text>
+                <TextRoboto fontStyle="bold" style={styles.appname_text}>Imdb Movies</TextRoboto>
             </View>
         );
     }
@@ -31,7 +32,7 @@ class SplashLoading extends React.Component {
 
         setTimeout(function () {
             OnSuccess();
-        }, 5000);
+        }, 2000);
     };
 
 }
@@ -41,7 +42,11 @@ const styles    = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: Color.primary_white,
+        backgroundColor: Color.primary_purple,
+    },
+    appname_text: {
+        fontSize: 20,
+        color: Color.primary_white,
     },
 });
 
