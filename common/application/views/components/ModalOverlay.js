@@ -4,7 +4,7 @@ import { Color } from '../../constant';
 
 import { StyleSheet, Modal, TouchableOpacity, ScrollView, TouchableWithoutFeedback, View } from 'react-native';
 
-class ModalOverlay extends React.Component {
+class ModalOverlay extends React.PureComponent {
 
     constructor(props) {
         super(props);
@@ -12,11 +12,6 @@ class ModalOverlay extends React.Component {
         this.state  = {
             isModalShow: false,
         };
-    }
-
-    componentWillMount() {
-        console.log('modalShow.props: ' + this.props.visible);
-        this.setState({ isModalShow: this.props.visible });
     }
 
     componentWillReceiveProps(nextProps) {

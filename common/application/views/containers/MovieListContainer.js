@@ -37,6 +37,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         asyncMovieList: (query, page) => dispatch(asyncMovieList(query, page)),
+        resetMovieList: () => dispatch(MovieActions.resetMovieList()),
     }
 };
 

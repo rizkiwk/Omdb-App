@@ -6,7 +6,7 @@ import SearchBarMovie from '../components/SearchBarMovie';
 function asyncSearchMovies(query, page) {
     return dispatch => {
         dispatch(MovieActions.setMovieSearchQuery(query));
-        dispatch(MovieActions.requestMovieList());
+        dispatch(MovieActions.requestMovieList('movie_list'));
 
         return MovieAPI.getMovieList(query, page).then((result) => {
             if (result.status === 200) {
@@ -17,13 +17,9 @@ function asyncSearchMovies(query, page) {
         }).catch((error) => {
             const errorMessage = "";
 
-            dispatch(MovieActions.successMovieList(errorMessage));
+            dispatch(MovieActions.successMovieList('movie_list', errorMessage));
         });
     };
-}
-
-function setSearchQuery(query) {
-    return dispatch => dispatch(MovieActions.setMovieSearchQuery(query));
 }
 
 

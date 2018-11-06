@@ -24,6 +24,12 @@ export function errorMovieList(channel, message) {
     }
 }
 
+export function resetMovieList() {
+    return {
+        type: Types.RESET_MOVIE_LIST_REDUX,
+    }
+}
+
 //=============== Async Movie Detail ===============//
 export function requestMovieDetail() {
     return {

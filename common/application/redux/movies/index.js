@@ -18,10 +18,12 @@ function movieListRedux(state = {}, action) {
 //=============== Movies By Channel ===============//
 function moviesByChannel(state = {}, action) {
     switch (action.type) {
+        case Types.API_ERROR_MOVIE_LIST:
+        case Types.API_REQUEST_MOVIE_LIST:
         case Types.API_SUCCESS_MOVIE_LIST:
-            return Object.assign({}, state, {
-                [action.channel]: movieListRedux(state[action.channel], action)
-            });
+            return Object.assign({}, state, { [action.channel]: movieListRedux(state[action.channel], action) });
+        case Types.RESET_MOVIE_LIST_REDUX:
+            return {};
         default:
             return state;
     }

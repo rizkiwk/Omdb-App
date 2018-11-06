@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { NavigationActions } from 'react-navigation';
 import { Layout, Color } from '../../constant';
 
-import { StyleSheet, View, FlatList, Image, TouchableOpacity, RefreshControl } from 'react-native';
+import { StyleSheet, View, Image, FlatList, TouchableOpacity, RefreshControl } from 'react-native';
 import { Spinner } from 'native-base';
 import FastImage from 'react-native-fast-image';
 import TextRoboto from '../components/TextRoboto';
@@ -15,6 +15,7 @@ class GridListMovies extends React.Component {
         super(props);
 
         this.state  = {
+            movies: null,
             showPullRefresh: false,
             showModalImage: false,
             modalImage: null,
@@ -28,7 +29,13 @@ class GridListMovies extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.movies !== null) this.setState({ showPullRefresh: false });
+        if (nextProps.movieSearch != null && nextProps.loading != null) {
+            this.setState({ showModalImage: false });
+        }
+
+        if (nextProps.movies !== null) {
+            this.setState({ showPullRefresh: false, showModalImage: false, movies: nextProps.movies });
+        }
     }
 
     render() {
@@ -36,7 +43,7 @@ class GridListMovies extends React.Component {
             <View style={styles.main_content}>
                 { this.props.loading && <Spinner size="large" color={Color.primary_black} /> }
 
-                { this.props.movies !== null && this._renderGridListMovie() }
+                { this.state.movies !== null && this._renderGridListMovie() }
 
                 <ModalOverlay 
                     visible={this.state.showModalImage}
@@ -52,7 +59,7 @@ class GridListMovies extends React.Component {
         return(
             <FlatList 
                 numColumns={2}
-                data={this.props.movies}
+                data={this.state.movies}
                 keyExtractor={this.__keyGridItemMovie}
                 renderItem={this._renderGridItemMovie}
                 contentContainerStyle={styles.grid_container}
@@ -161,11 +168,11 @@ const styles    = StyleSheet.create({
         marginVertical: 5,
     },
     griditem_container: {
-        width: Layout.isMediumDevice ? 140 : (Layout.isSmallDevice ? 125 : 167),
+        width: Layout.isMediumDevice ? 140 : (Layout.isSmallDevice ? 120 : 160),
     },
     griditem_poster_wrapper: {
         width: '100%',
-        height: Layout.isMediumDevice ? 180 : (Layout.isSmallDevice ? 125 : 167),
+        height: Layout.isMediumDevice ? 180 : (Layout.isSmallDevice ? 160 : 200),
         marginBottom: 10,
     },
     griditem_poster: {
@@ -174,7 +181,7 @@ const styles    = StyleSheet.create({
     },
     griditem_poster_empty_wrapper: {
         flex: 1,
-        height: Layout.isMediumDevice ? 180 : (Layout.isSmallDevice ? 125 : 167),
+        height: Layout.isMediumDevice ? 180 : (Layout.isSmallDevice ? 160 : 200),
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 10,
@@ -208,6 +215,7 @@ GridListMovies.propTypes    = {
     errorMessage: PropTypes.string,
     loading: PropTypes.bool,
     asyncMovieList: PropTypes.func.isRequired,
+    resetMovieList: PropTypes.func,
 }
 
 export default GridListMovies;
